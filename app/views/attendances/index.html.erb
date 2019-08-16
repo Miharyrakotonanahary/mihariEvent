@@ -1,0 +1,75 @@
+
+<div class="jumbotron" style="background-image: url(https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?cs=srgb&dl=audience-band-concert-1105666.jpg&fm=jpg); background-size: 100%;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+        <section class="card frame">
+          <div class="card-body">
+            <h5 class="card-title">
+              <strong><%= @event.title %><% if @event.participate?(current_user) %> <span class="badge badge-secondary bg-success">Je participe !</span><% end %>
+                <% if @event.admin == current_user %> <span class="badge badge-secondary bg-danger">Admin</span><% end %>
+              </strong>
+            </h5>
+
+            <p><i class="fas fa-map-marker-alt text-warning"></i>  <%= @event.location %></p>
+            <p>Créé par <em><%= @event.admin.name %></em> <%= @event.admin.email %> </p>
+            <p><%= @event.participants.count %> personnes participent à cet évenement </p>
+            <p>
+              début : <%= @event.convert_start_date %>
+            </p>
+            <p>
+              fin : <%= @event.end_date %>
+            </p>
+
+            <p class="price rounded-circle position-absolute border border-info text-light"><strong><%= @event.price %>€</strong></p>
+            <aside class="date position-absolute">
+                  <p class="month text-warning position-absolute w-100"><strong><%= @event.get_month %></strong></p>
+                  <p class="day_of_month position-absolute w-100"><%= @event.start_date.day %></p>
+            </aside>
+            
+
+            <div class="container bg-light border border-info rounded">
+              <p><strong>Description:</strong></p>
+              <p><%= @event.description %></p>
+            </div>
+    
+
+            <%= link_to "Modifier l'évènement", edit_event_path(@event), class:"btn btn-primary mt-1" %> 
+            <%= link_to "Supprimer l'évènement", @event, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger mt-1" %>
+            <%= link_to 'Retour', event_path(@event) %>
+
+
+            <div class="container text-center">
+	<h1>Participants</h1>
+	<table class="table">
+	  <thead class="thead-light">
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Prénom</th>
+	      <th scope="col">Nom</th>
+	      <th scope="col">email</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% @event.participants.each_with_index do |participant, index| %>
+	    <tr>
+	      <th scope="row"><%= index+1 %></th>
+	      <td><%= participant.first_name %></td>
+	      <td><%= participant.last_name %></td>
+	      <td><%= participant.email %></td>
+	    </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+

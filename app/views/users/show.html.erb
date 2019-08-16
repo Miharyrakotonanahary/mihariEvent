@@ -1,0 +1,54 @@
+<br>
+<section class="card-events">
+  <h2>Mes infos</h2>
+  <div class="row">
+    <div class="col">
+    <p>
+      <strong>Email:</strong>
+      <%= @user.email %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @user.description %>
+    </p>
+
+    <p>
+      <strong>First name:</strong>
+      <%= @user.first_name %>
+    </p>
+
+    <p>
+      <strong>Last name:</strong>
+      <%= @user.last_name %>
+    </p>
+
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+
+
+      <%= link_to "Edit email / password", edit_user_registration_path %>
+
+
+  </div>
+  </div>
+</section>
+<br>
+
+<p>Bienvenue sur la page d'ajout d'un avatar pour le User portant l'id : <%=@user.id%></p>
+<h3>Avatar actuel</h3>
+<%if @user.user_pic.attached?%>
+  <%= image_tag @user.user_pic, alt: 'user_pic' %>
+<%else%>
+  <p>=== Il n'y a pas encore d'user_pic lié à cet utilisateur ===</p>
+<%end%>
+
+<section class="card-events">
+  <h2>Mes évenements</h2>
+  <div class="row">
+    <% @user.organized_events.each do |event| %>
+      <%= render 'shared/event-card', event: event %>
+    <% end %>
+  </div>
+</section>
+
+
